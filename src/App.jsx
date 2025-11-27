@@ -18,25 +18,25 @@ function App() {
 
   const isFinished = days + hours + minutes + seconds <= 0;
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.muted = false;
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          audioRef.current.muted = false;
-          audioRef.current.play();
-        });
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (audioRef.current) {
+  //     audioRef.current.muted = false;
+  //     const playPromise = audioRef.current.play();
+  //     if (playPromise !== undefined) {
+  //       playPromise.catch(() => {
+  //         audioRef.current.muted = false;
+  //         audioRef.current.play();
+  //       });
+  //     }
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (isFinished && audioRef1.current) {
-      audioRef1.current.muted = false;
-      audioRef1.current.play().catch(() => {});
-    }
-  }, [isFinished]);
+  // useEffect(() => {
+  //   if (isFinished && audioRef1.current) {
+  //     audioRef1.current.muted = false;
+  //     audioRef1.current.play().catch(() => {});
+  //   }
+  // }, [isFinished]);
 
   return (
     <div
@@ -49,20 +49,18 @@ function App() {
 
       {/* Audio */}
       <audio
-        ref={audioRef}
+        ref={audioRef1}
         autoPlay
         loop
-        muted
-        playsInline
         preload="auto"
-        className="audio-hidden"
+        style={{ display: "none" }}
       >
         <source src={audio1} type="audio/mp3" />
       </audio>
 
       {/* Finished sound */}
       <audio
-        ref={audioRef1}
+        ref={audioRef}
         autoPlay
         loop
         preload="auto"
