@@ -26,29 +26,16 @@ body {
 
 
 
-/* .bg-hero {
-  background-image: url("./assets/Edited.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  padding: 20px;
-  width: 100%;
-} */
-
-
-
-
-
 /* App.css */
 
 .app-container {
   width: 100vw;
-  height: 100vh; /* full viewport height */
+  height: 100vh; 
   position: relative;
   color: white;
   overflow: hidden;
-  background-size: cover;       /* ensures image covers whole container */
-  background-position: center;  /* centers the image */
+  background-size: cover;    
+  background-position: center;  
   background-repeat: no-repeat;
 }
 
@@ -87,7 +74,7 @@ body {
 
 .logo-title h1 {
   font-weight: 800;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  text-shadow: 0 2px 4px rgba(95, 94, 94, 0.6);
   font-size: 2rem;
 }
 
