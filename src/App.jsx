@@ -1,70 +1,44 @@
 import { useCountdown } from "./hooks/useCountdown";
-import { useRef, useEffect } from "react";
+import audio1 from "./assets/bg-music.mp3";
+import { useRef, useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import logo from "./assets/logo.png";
 import bgImage from "./assets/Edited.jpg";
 import "./App.css";
-import audio1 from "./assets/bg-music.mp3";
 
 function App() {
   const targetDate = new Date(
     "December 12, 2025 22:00:00 GMT+0600"
   ).toISOString();
-
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
 
   const audioRef = useRef(null);
   const audioRef1 = useRef(null);
+  const [soundEnabled, setSoundEnabled] = useState(false);
 
   const isFinished = days + hours + minutes + seconds <= 0;
-
-  // useEffect(() => {
-  //   if (audioRef.current) {
-  //     audioRef.current.muted = false;
-  //     const playPromise = audioRef.current.play();
-  //     if (playPromise !== undefined) {
-  //       playPromise.catch(() => {
-  //         audioRef.current.muted = false;
-  //         audioRef.current.play();
-  //       });
-  //     }
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (isFinished && audioRef1.current) {
-  //     audioRef1.current.muted = false;
-  //     audioRef1.current.play().catch(() => {});
-  //   }
-  // }, [isFinished]);
 
   return (
     <div
       className="app-container"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      {isFinished && (
+      {/* {isFinished && (
         <Confetti width={window.innerWidth} height={window.innerHeight} />
-      )}
+      )} */}
 
       {/* Audio */}
-      <audio
-        ref={audioRef1}
-        autoPlay
-        loop
-        preload="auto"
-        style={{ display: "none" }}
-      >
+      <audio autoPlay loop playsInline>
         <source src={audio1} type="audio/mp3" />
       </audio>
 
-      {/* Finished sound */}
       <audio
-        ref={audioRef}
-        autoPlay
+        ref={audioRef1}
         loop
+        muted
+        playsInline
         preload="auto"
-        style={{ display: "none" }}
+        className="audio-hidden"
       >
         <source src={audio1} type="audio/mp3" />
       </audio>
