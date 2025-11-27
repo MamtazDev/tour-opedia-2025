@@ -56,7 +56,7 @@ function App() {
 
         {/* Toggle Play / Mute Button */}
         <button className="sound-btn title-btn" onClick={toggleSound}>
-          {soundEnabled ? "🔇 Mute Music" : "▶ Play Music raa"}
+          {soundEnabled ? "🔇 Mute Music" : "▶ Play Music"}
         </button>
       </div>
 
