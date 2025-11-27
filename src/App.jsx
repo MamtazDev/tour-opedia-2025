@@ -17,7 +17,6 @@ function App() {
 
   const isFinished = days + hours + minutes + seconds <= 0;
 
-  // Auto-play muted (only allowed way)
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.muted = true;
@@ -25,12 +24,16 @@ function App() {
     }
   }, []);
 
-  // Toggle sound
+  // Button click to unmute
   const toggleSound = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !audioRef.current.muted;
-    }
-    setSoundEnabled((prev) => !prev);
+    if (!audioRef.current) return;
+
+    audioRef.current.muted = !audioRef.current.muted;
+
+    // Chrome requires calling play() on user interaction
+    audioRef.current.play().catch(() => {});
+
+    setSoundEnabled(!soundEnabled);
   };
 
   return (
@@ -53,7 +56,7 @@ function App() {
 
         {/* Toggle Play / Mute Button */}
         <button className="sound-btn title-btn" onClick={toggleSound}>
-          {soundEnabled ? "🔇 Mute Music" : "▶ Play Music"}
+          {soundEnabled ? "🔇 Mute Music" : "▶ Play Music raa"}
         </button>
       </div>
 
