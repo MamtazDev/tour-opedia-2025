@@ -25,12 +25,12 @@ function App() {
     }
   }, []);
 
-  // Click → only unmute (does NOT restart audio → no double play)
-  const enableSound = () => {
+  // Toggle sound
+  const toggleSound = () => {
     if (audioRef.current) {
-      audioRef.current.muted = false;
+      audioRef.current.muted = !audioRef.current.muted;
     }
-    setSoundEnabled(true);
+    setSoundEnabled((prev) => !prev);
   };
 
   return (
@@ -42,22 +42,19 @@ function App() {
         <Confetti width={window.innerWidth} height={window.innerHeight} />
       )}
 
-      {/* Background Music */}
       <audio ref={audioRef} autoPlay loop playsInline preload="auto">
         <source src={audio1} type="audio/mp3" />
       </audio>
 
-      {/* Enable Sound Button */}
-      {!soundEnabled && (
-        <button className="sound-btn" onClick={enableSound}>
-          🔊 Enable Sound
-        </button>
-      )}
-
       {/* Logo + Title */}
       <div className="logo-title">
-        <img src={logo} alt="Logo" />
-        <h1>Saint Martin Tour</h1>
+        <img src={logo} alt="Logo" className="opedia-logo" />
+        <h1 className="large-title">Saint Martin Tour</h1>
+
+        {/* Toggle Play / Mute Button */}
+        <button className="sound-btn title-btn" onClick={toggleSound}>
+          {soundEnabled ? "🔇 Mute Music" : "▶ Play Music"}
+        </button>
       </div>
 
       {/* Countdown Card */}

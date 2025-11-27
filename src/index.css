@@ -39,6 +39,21 @@ body {
   background-repeat: no-repeat;
 }
 
+
+.sound-btn {
+  padding: 10px 25px;
+  font-size: 18px;
+  font-weight: semibold;
+ backdrop-filter: blur(4px);              
+  background-color: rgba(231, 231, 231, 0.4); 
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  color: black;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 .logo-title {
   position: absolute;
   top: 120px;
@@ -46,7 +61,6 @@ body {
   transform: translateX(-50%);
   text-align: center;
   padding: 0 1rem;
-  pointer-events: none;
 }
 
 .logo-title img {
