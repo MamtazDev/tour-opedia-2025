@@ -35,7 +35,6 @@ function App() {
       <audio
         ref={audioRef1}
         loop
-        muted
         playsInline
         preload="auto"
         className="audio-hidden"
