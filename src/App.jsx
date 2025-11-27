@@ -12,10 +12,9 @@ function App() {
   ).toISOString();
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
 
-  const audioRef = useRef(null);
   const audioRef1 = useRef(null);
+  const audioRef = useRef(null);
   const [soundEnabled, setSoundEnabled] = useState(false);
-
   const isFinished = days + hours + minutes + seconds <= 0;
 
   return (
