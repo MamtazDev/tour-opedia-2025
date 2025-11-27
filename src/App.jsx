@@ -12,31 +12,27 @@ function App() {
   ).toISOString();
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
 
-  const audioRef1 = useRef(null);
   const audioRef = useRef(null);
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const audioRef1 = useRef(null);
+
   const isFinished = days + hours + minutes + seconds <= 0;
 
   return (
     <div
       className="app-container"
       style={{ backgroundImage: `url(${bgImage})` }}
+      onClick={() => audioRef.current.play()}
     >
       {/* {isFinished && (
         <Confetti width={window.innerWidth} height={window.innerHeight} />
       )} */}
 
-      {/* Audio */}
-      <audio autoPlay loop playsInline>
-        <source src={audio1} type="audio/mp3" />
-      </audio>
-
       <audio
-        ref={audioRef1}
+        ref={audioRef}
+        autoPlay
         loop
-        playsInline
         preload="auto"
-        className="audio-hidden"
+        style={{ display: "none" }}
       >
         <source src={audio1} type="audio/mp3" />
       </audio>
