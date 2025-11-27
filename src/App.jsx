@@ -1,15 +1,16 @@
 import { useCountdown } from "./hooks/useCountdown";
-import audio1 from "./assets/bg-music.mp3";
 import { useRef, useEffect } from "react";
 import Confetti from "react-confetti";
 import logo from "./assets/logo.png";
 import bgImage from "./assets/Edited.jpg";
 import "./App.css";
+import audio1 from "./assets/bg-music.mp3";
 
 function App() {
   const targetDate = new Date(
     "December 12, 2025 22:00:00 GMT+0600"
   ).toISOString();
+
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
 
   const audioRef = useRef(null);
@@ -17,14 +18,12 @@ function App() {
 
   const isFinished = days + hours + minutes + seconds <= 0;
 
-  // Auto-play audio on mount
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.muted = false;
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // handle autoplay block in some browsers
           audioRef.current.muted = false;
           audioRef.current.play();
         });
@@ -64,11 +63,10 @@ function App() {
       {/* Finished sound */}
       <audio
         ref={audioRef1}
+        autoPlay
         loop
-        muted
-        playsInline
         preload="auto"
-        className="audio-hidden"
+        style={{ display: "none" }}
       >
         <source src={audio1} type="audio/mp3" />
       </audio>
