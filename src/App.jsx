@@ -1,34 +1,98 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useCountdown } from "./hooks/useCountdown";
+import audio1 from "./assets/bg-music.mp3";
+import { useRef, useEffect } from "react";
+import Confetti from "react-confetti";
+import logo from "./assets/logo.png";
+import bgImage from "./assets/Edited.jpg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const targetDate = new Date(
+    "December 12, 2025 22:00:00 GMT+0600"
+  ).toISOString();
+  const [days, hours, minutes, seconds] = useCountdown(targetDate);
+
+  const audioRef = useRef(null);
+  const audioRef1 = useRef(null);
+
+  const isFinished = days + hours + minutes + seconds <= 0;
+
+  // Auto-play audio on mount
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.muted = false;
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // handle autoplay block in some browsers
+          audioRef.current.muted = false;
+          audioRef.current.play();
+        });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isFinished && audioRef1.current) {
+      audioRef1.current.muted = false;
+      audioRef1.current.play().catch(() => {});
+    }
+  }, [isFinished]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div
+      className="app-container"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      {isFinished && (
+        <Confetti width={window.innerWidth} height={window.innerHeight} />
+      )}
+
+      {/* Audio */}
+      <audio
+        ref={audioRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="audio-hidden"
+      >
+        <source src={audio1} type="audio/mp3" />
+      </audio>
+
+      {/* Finished sound */}
+      <audio
+        ref={audioRef1}
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="audio-hidden"
+      >
+        <source src={audio1} type="audio/mp3" />
+      </audio>
+
+      {/* Logo + Title */}
+      <div className="logo-title">
+        <img src={logo} alt="logo" />
+        <h1>Saint Martin Tour</h1>
       </div>
-      <h1>rafa</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      {/* Countdown Card */}
+      <div className="countdown-card">
+        {["DAYS", "HOURS", "MINUTES", "SECONDS"].map((label, i) => (
+          <div key={label} className="countdown-item">
+            <div className="countdown-number-card">
+              <span className="countdown-number">
+                {[days, hours, minutes, seconds][i]}
+              </span>
+            </div>
+            <p className="countdown-label">{label}</p>
+          </div>
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   );
 }
 
